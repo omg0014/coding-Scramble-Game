@@ -4,8 +4,105 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Word Scramble Game</title>
-    <link rel="stylesheet" href="style.css">
-    <script defer src="script.js"></script>
+    <style>
+        :root {
+            --deep-blue: #00008b;
+            --royal-blue: #4169e1;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            background-color: var(--deep-blue);
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            margin: 5vh auto;
+            background: var(--royal-blue);
+            padding: 5vw;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+        }
+
+        #question {
+            font-size: 6vw;
+            font-weight: bold;
+            color: orange;
+            margin: 1em 0;
+        }
+
+        #level, #scrambled-word {
+            font-size: 5vw;
+            margin: 0.5em 0;
+        }
+
+        input {
+            width: 80%;
+            padding: 12px;
+            font-size: 1.2em;
+            border-radius: 8px;
+            border: none;
+            margin-top: 1em;
+        }
+
+        button {
+            margin-top: 1em;
+            padding: 12px 24px;
+            font-size: 1.2em;
+            cursor: pointer;
+            background-color: green;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: darkgreen;
+        }
+
+        #message {
+            font-size: 1.1em;
+            margin-top: 1em;
+        }
+
+        /* Tablets */
+        @media (min-width: 600px) {
+            #question {
+                font-size: 32px;
+            }
+
+            #level, #scrambled-word {
+                font-size: 24px;
+            }
+        }
+
+        /* Mobile phones */
+        @media (max-width: 480px) {
+            .container {
+                width: 95%;
+                padding: 5vw;
+            }
+
+            input, button {
+                width: 90%;
+                font-size: 1em;
+            }
+
+            #question {
+                font-size: 6vw;
+            }
+
+            #level, #scrambled-word {
+                font-size: 5vw;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -18,115 +115,62 @@
         <p id="message"></p>
     </div>
 
-    <style>
-:root {
-    --deep-blue: #00008b;
-    --royal-blue: #4169e1;
-}
-#level{
-    font-size: 25px;
-}
-#scrambled-word{
-    font-size: 25px;    
-}
-body {
-    font-family: 'Poppins', sans-serif;
-    text-align: center;
-    background-color: var(--deep-blue);
-    color: white;
-}
-.container {
-    margin-top: 50px;
-    background: var(--royal-blue);
-    padding: 40px;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
-    display: inline-block;
-    border-radius: 20px;
-    width: 60%;
-}
-#question {
-    font-size: 36px;
-    font-weight: bold;
-    color: orange;
-}
-input {
-    padding: 14px;
-    font-size: 20px;
-    border-radius: 8px;
-    border: none;
-}
-button {
-    padding: 14px 20px;
-    font-size: 20px;
-    cursor: pointer;
-    background-color: green;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    transition: background 0.3s;
-}
-button:hover {
-    background-color: darkgreen;
-}
-    </style>
-
     <script>
         let words = [
-    { question: "What keyword is used to define a function in Python?", word: "def", hint: "Scrambled word: efd" },
-    { question: "Which data type is used to store multiple items in a single variable?", word: "list", hint: "Scrambled word: silt" },
-    { question: "Which function is used to display output in Python?", word: "print", hint: "Scrambled word: tnirp" },
-    { question: "Which loop runs at least once and checks the condition later?", word: "while", hint: "Scrambled word: ielhw" },
-    { question: "What symbol is used for single-line comments in Python?", word: "#", hint: "Scrambled word: #" },
-    { question: "What keyword is used to exit a loop early?", word: "break", hint: "Scrambled word: ekarb" },
-    { question: "Which data structure is immutable and ordered?", word: "tuple", hint: "Scrambled word: etplu" },
-    { question: "What is the file extension for Python files?", word: ".py", hint: "Scrambled word: yp." },
-    { question: "What function is used to take user input?", word: "input", hint: "Scrambled word: pniut" },
-    { question: "Which Python keyword is used to handle exceptions?", word: "try", hint: "Scrambled word: yrt" },
-    { question: "Which function is used to find the length of a list or string?", word: "len()", hint: "Scrambled word: ()enl" },
-    { question: "Which keyword is used to create a class in Python?", word: "class", hint: "Scrambled word: ssalc" },
-    { question: "Which built-in function converts a string into an integer?", word: "int", hint: "Scrambled word: tni" },
-    { question: "Which statement is used to import a module in Python?", word: "import", hint: "Scrambled word: tmopri" },
-    { question: "Which operator is used for exponentiation in Python?", word: "**", hint: "Scrambled word: **" },
-    { question: "Which function is used to remove an item from a list by value?", word: "remove()", hint: "Scrambled word: mreove()" },
-    { question: "Which method is used to convert a string to lowercase?", word: "lower()", hint: "Scrambled word: rwloe()" },
-    { question: "Which method is used to replace a substring in a string?", word: "replace()", hint: "Scrambled word: elrpaec()" },
-    { question: "Which Python function returns the maximum value from a list?", word: "max()", hint: "Scrambled word: ()xam" },
-    { question: "Which function is used to round a number to the nearest integer?", word: "round()", hint: "Scrambled word: ()ndoru" },
-    { question: "Which tag is used for the largest heading in HTML?", word: "<h1>", hint: "Scrambled word: 1h<>" },
-    { question: "Which tag is used to create a hyperlink?", word: "<a>", hint: "Scrambled word: <>a" },
-    { question: "What attribute is used to specify an image source?", word: "src", hint: "Scrambled word: rcs" },
-    { question: "Which tag is used to create an unordered list?", word: "<ul>", hint: "Scrambled word: lu<>" },
-    { question: "Which tag is used to insert a line break?", word: "<br>", hint: "Scrambled word: rb<>" },
-    { question: "What does HTML stand for?", word: "HyperText Markup Language", hint: "Scrambled word: TpxreyHet pMurak geaLguan" },
-    { question: "Which tag is used for adding a table row?", word: "<tr>", hint: "Scrambled word: rt<>" },
-    { question: "Which input type is used for passwords?", word: "password", hint: "Scrambled word: wsropasd" },
-    { question: "Which tag is used for defining metadata in HTML?", word: "<meta>", hint: "Scrambled word: tmae<>" },
-    { question: "Which HTML tag is used to play audio files?", word: "<audio>", hint: "Scrambled word: udioa<>" },
-    { question: "Which tag is used to define a paragraph?", word: "<p>", hint: "Scrambled word: p<>" },
-    { question: "Which HTML tag is used to create a form?", word: "<form>", hint: "Scrambled word: morf<>" },
-    { question: "Which tag is used to create a dropdown list?", word: "<select>", hint: "Scrambled word: tceles<>" },
-    { question: "Which attribute is used to set a unique identifier for an element?", word: "id", hint: "Scrambled word: di" },
-    { question: "Which tag is used to create a button in HTML?", word: "<button>", hint: "Scrambled word: otutnb<>" },
-    { question: "Which property is used to make text bold?", word: "font-weight", hint: "Scrambled word: tonf-giweth" },
-    { question: "Which property controls the width of an element?", word: "width", hint: "Scrambled word: htdwi" },
-    { question: "Which property is used to apply a border to an element?", word: "border", hint: "Scrambled word: dbrero" },
-    { question: "Which property is used to set the height of an element?", word: "height", hint: "Scrambled word: ghiteh" },
-    { question: "Which CSS property is used to hide an element?", word: "display: none;", hint: "Scrambled word: ypsiald: enon" },
-    { question: "Which CSS property controls the space between lines of text?", word: "line-height", hint: "Scrambled word: enil-thgeih" },
-    { question: "Which CSS property is used to change the cursor style?", word: "cursor", hint: "Scrambled word: osurcr" },
-    { question: "Which CSS property is used to create rounded corners?", word: "border-radius", hint: "Scrambled word: drebor-uisadr" },
-    { question: "Which property is used to apply an image as a background?", word: "background-image", hint: "Scrambled word: kncgrubado-mgeia" },
-    { question: "Which property is used to control the spacing between letters?", word: "letter-spacing", hint: "Scrambled word: etltre-icpgnas" },
-    { question: "Which CSS property is used to make text italic?", word: "font-style", hint: "Scrambled word: tfon-elyts" }
+            { question: "What keyword is used to define a function in Python?", word: "def", hint: "Scrambled word: efd" },
+            { question: "Which data type is used to store multiple items in a single variable?", word: "list", hint: "Scrambled word: silt" },
+            { question: "Which function is used to display output in Python?", word: "print", hint: "Scrambled word: tnirp" },
+            { question: "Which loop runs at least once and checks the condition later?", word: "while", hint: "Scrambled word: ielhw" },
+            { question: "What symbol is used for single-line comments in Python?", word: "#", hint: "Scrambled word: #" },
+            { question: "What keyword is used to exit a loop early?", word: "break", hint: "Scrambled word: ekarb" },
+            { question: "Which data structure is immutable and ordered?", word: "tuple", hint: "Scrambled word: etplu" },
+            { question: "What is the file extension for Python files?", word: ".py", hint: "Scrambled word: yp." },
+            { question: "What function is used to take user input?", word: "input", hint: "Scrambled word: pniut" },
+            { question: "Which Python keyword is used to handle exceptions?", word: "try", hint: "Scrambled word: yrt" },
+            { question: "Which function is used to find the length of a list or string?", word: "len()", hint: "Scrambled word: ()enl" },
+            { question: "Which keyword is used to create a class in Python?", word: "class", hint: "Scrambled word: ssalc" },
+            { question: "Which built-in function converts a string into an integer?", word: "int", hint: "Scrambled word: tni" },
+            { question: "Which statement is used to import a module in Python?", word: "import", hint: "Scrambled word: tmopri" },
+            { question: "Which operator is used for exponentiation in Python?", word: "**", hint: "Scrambled word: **" },
+            { question: "Which function is used to remove an item from a list by value?", word: "remove()", hint: "Scrambled word: mreove()" },
+            { question: "Which method is used to convert a string to lowercase?", word: "lower()", hint: "Scrambled word: rwloe()" },
+            { question: "Which method is used to replace a substring in a string?", word: "replace()", hint: "Scrambled word: elrpaec()" },
+            { question: "Which Python function returns the maximum value from a list?", word: "max()", hint: "Scrambled word: ()xam" },
+            { question: "Which function is used to round a number to the nearest integer?", word: "round()", hint: "Scrambled word: ()ndoru" },
+            { question: "Which tag is used for the largest heading in HTML?", word: "<h1>", hint: "Scrambled word: 1h<>" },
+            { question: "Which tag is used to create a hyperlink?", word: "<a>", hint: "Scrambled word: <>a" },
+            { question: "What attribute is used to specify an image source?", word: "src", hint: "Scrambled word: rcs" },
+            { question: "Which tag is used to create an unordered list?", word: "<ul>", hint: "Scrambled word: lu<>" },
+            { question: "Which tag is used to insert a line break?", word: "<br>", hint: "Scrambled word: rb<>" },
+            { question: "What does HTML stand for?", word: "HyperText Markup Language", hint: "Scrambled word: TpxreyHet pMurak geaLguan" },
+            { question: "Which tag is used for adding a table row?", word: "<tr>", hint: "Scrambled word: rt<>" },
+            { question: "Which input type is used for passwords?", word: "password", hint: "Scrambled word: wsropasd" },
+            { question: "Which tag is used for defining metadata in HTML?", word: "<meta>", hint: "Scrambled word: tmae<>" },
+            { question: "Which HTML tag is used to play audio files?", word: "<audio>", hint: "Scrambled word: udioa<>" },
+            { question: "Which tag is used to define a paragraph?", word: "<p>", hint: "Scrambled word: p<>" },
+            { question: "Which HTML tag is used to create a form?", word: "<form>", hint: "Scrambled word: morf<>" },
+            { question: "Which tag is used to create a dropdown list?", word: "<select>", hint: "Scrambled word: tceles<>" },
+            { question: "Which attribute is used to set a unique identifier for an element?", word: "id", hint: "Scrambled word: di" },
+            { question: "Which tag is used to create a button in HTML?", word: "<button>", hint: "Scrambled word: otutnb<>" },
+            { question: "Which property is used to make text bold?", word: "font-weight", hint: "Scrambled word: tonf-giweth" },
+            { question: "Which property controls the width of an element?", word: "width", hint: "Scrambled word: htdwi" },
+            { question: "Which property is used to apply a border to an element?", word: "border", hint: "Scrambled word: dbrero" },
+            { question: "Which property is used to set the height of an element?", word: "height", hint: "Scrambled word: ghiteh" },
+            { question: "Which CSS property is used to hide an element?", word: "display: none;", hint: "Scrambled word: ypsiald: enon" },
+            { question: "Which CSS property controls the space between lines of text?", word: "line-height", hint: "Scrambled word: enil-thgeih" },
+            { question: "Which CSS property is used to change the cursor style?", word: "cursor", hint: "Scrambled word: osurcr" },
+            { question: "Which CSS property is used to create rounded corners?", word: "border-radius", hint: "Scrambled word: drebor-uisadr" },
+            { question: "Which property is used to apply an image as a background?", word: "background-image", hint: "Scrambled word: kncgrubado-mgeia" },
+            { question: "Which property is used to control the spacing between letters?", word: "letter-spacing", hint: "Scrambled word: etltre-icpgnas" },
+            { question: "Which CSS property is used to make text italic?", word: "font-style", hint: "Scrambled word: tfon-elyts" }
+        ];
 
-];
-        
         let currentLevel = 1;
-        
+
         function shuffleQuestions() {
             words = words.sort(() => Math.random() - 0.5);
         }
-        
+
         function loadGame() {
             if (currentLevel === 1) shuffleQuestions();
             if (currentLevel > words.length) {
